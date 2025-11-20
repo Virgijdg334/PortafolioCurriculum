@@ -3,80 +3,101 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Award, Calendar, ExternalLink } from 'lucide-react';
 import { Button } from './ui/button';
-
-const certificates = [
-  {
-    title: 'AWS Cloud Practitioner',
-    issuer: 'Amazon Web Services (AWS)',
-    date: '2024',
-    skills: ['AWS', 'Cloud Computing', 'EC2', 'S3', 'Lambda', 'CloudFormation'],
-    description: 'Certificación fundamental de AWS que valida conocimientos básicos sobre la nube de Amazon Web Services',
-    verified: true
-  },
-  {
-    title: 'Desarrollo de Aplicaciones Multiplataforma',
-    issuer: 'OpenWebinar',
-    date: '2023',
-    skills: ['Java', 'SQL', 'HTML', 'CSS', 'XML', 'Angular', 'React'],
-    description: 'Especialización completa en desarrollo de aplicaciones para múltiples plataformas',
-    verified: true
-  },
-  {
-    title: 'Google Cloud Digital Leader',
-    issuer: 'Google Cloud',
-    date: '2024',
-    skills: ['Google Cloud', 'BigQuery', 'Compute Engine', 'Cloud Storage', 'AI/ML'],
-    description: 'Certificación que demuestra competencia en conceptos fundamentales de Google Cloud Platform',
-    verified: true
-  },
-  {
-    title: 'Fundamentos de Programación en Java',
-    issuer: 'Oracle Academy',
-    date: '2023',
-    skills: ['Java', 'POO', 'Algoritmos'],
-    description: 'Certificación en fundamentos de Java y programación orientada a objetos',
-    verified: true
-  },
-  {
-    title: 'Desarrollo Web Frontend',
-    issuer: 'FreeCodeCamp',
-    date: '2023',
-    skills: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
-    description: 'Certificación en tecnologías frontend modernas y diseño responsive',
-    verified: true
-  },
-  {
-    title: 'Bases de Datos SQL',
-    issuer: 'Microsoft Learn',
-    date: '2023',
-    skills: ['SQL Server', 'MySQL', 'Consultas', 'Diseño DB'],
-    description: 'Fundamentos de bases de datos relacionales y lenguaje SQL',
-    verified: true
-  }
-];
-
-const achievements = [
-  {
-    title: 'Organizador de Eventos Técnicos',
-    description: 'Organizador principal en Videojuegos Party 2022',
-    icon: '🎮',
-    date: '2022'
-  },
-  {
-    title: 'Proyectos Académicos',
-    description: 'Desarrollo de múltiples aplicaciones durante el curso',
-    icon: '📱',
-    date: '2023-2024'
-  },
-  {
-    title: 'Nivel Avanzado de Inglés',
-    description: 'Capacidad para trabajar en entornos internacionales',
-    icon: '🌍',
-    date: 'Actual'
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function Certificates() {
+  const { t, language } = useLanguage();
+
+  const certificates = [
+    {
+      title: 'AWS Cloud Practitioner',
+      issuer: 'Amazon Web Services (AWS)',
+      date: '2024',
+      skills: ['AWS', 'Cloud Computing', 'EC2', 'S3', 'Lambda', 'CloudFormation'],
+      description: language === 'es' 
+        ? 'Certificación fundamental de AWS que valida conocimientos básicos sobre la nube de Amazon Web Services'
+        : 'AWS fundamental certification that validates basic knowledge of Amazon Web Services cloud',
+      verified: true
+    },
+    {
+      title: language === 'es' ? 'Desarrollo de Aplicaciones Multiplataforma' : 'Cross-Platform Application Development',
+      issuer: 'OpenWebinar',
+      date: '2023',
+      skills: ['Java', 'SQL', 'HTML', 'CSS', 'XML', 'Angular', 'React'],
+      description: language === 'es'
+        ? 'Especialización completa en desarrollo de aplicaciones para múltiples plataformas'
+        : 'Complete specialization in application development for multiple platforms',
+      verified: true
+    },
+    {
+      title: 'Google Cloud Digital Leader',
+      issuer: 'Google Cloud',
+      date: '2024',
+      skills: ['Google Cloud', 'BigQuery', 'Compute Engine', 'Cloud Storage', 'AI/ML'],
+      description: language === 'es'
+        ? 'Certificación que demuestra competencia en conceptos fundamentales de Google Cloud Platform'
+        : 'Certification that demonstrates proficiency in fundamental Google Cloud Platform concepts',
+      verified: true
+    },
+    {
+      title: language === 'es' ? 'Fundamentos de Programación en Java' : 'Java Programming Fundamentals',
+      issuer: 'Oracle Academy',
+      date: '2023',
+      skills: ['Java', 'POO', 'Algoritmos'],
+      description: language === 'es'
+        ? 'Certificación en fundamentos de Java y programación orientada a objetos'
+        : 'Certification in Java fundamentals and object-oriented programming',
+      verified: true
+    },
+    {
+      title: language === 'es' ? 'Desarrollo Web Frontend' : 'Frontend Web Development',
+      issuer: 'FreeCodeCamp',
+      date: '2023',
+      skills: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+      description: language === 'es'
+        ? 'Certificación en tecnologías frontend modernas y diseño responsive'
+        : 'Certification in modern frontend technologies and responsive design',
+      verified: true
+    },
+    {
+      title: language === 'es' ? 'Bases de Datos SQL' : 'SQL Databases',
+      issuer: 'Microsoft Learn',
+      date: '2023',
+      skills: ['SQL Server', 'MySQL', 'Consultas', 'Diseño DB'],
+      description: language === 'es'
+        ? 'Fundamentos de bases de datos relacionales y lenguaje SQL'
+        : 'Fundamentals of relational databases and SQL language',
+      verified: true
+    }
+  ];
+
+  const achievements = [
+    {
+      title: language === 'es' ? 'Organizador de Eventos Técnicos' : 'Technical Event Organizer',
+      description: language === 'es' 
+        ? 'Organizador principal en Videojuegos Party 2022'
+        : 'Lead organizer at Videogames Party 2022',
+      icon: '🎮',
+      date: '2022'
+    },
+    {
+      title: language === 'es' ? 'Proyectos Académicos' : 'Academic Projects',
+      description: language === 'es'
+        ? 'Desarrollo de múltiples aplicaciones durante el curso'
+        : 'Development of multiple applications during the course',
+      icon: '📱',
+      date: '2023-2024'
+    },
+    {
+      title: language === 'es' ? 'Nivel Avanzado de Inglés' : 'Advanced English Level',
+      description: language === 'es'
+        ? 'Capacidad para trabajar en entornos internacionales'
+        : 'Ability to work in international environments',
+      icon: '🌍',
+      date: language === 'es' ? 'Actual' : 'Current'
+    }
+  ];
+
   return (
     <section id="certificates" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,10 +109,10 @@ export function Certificates() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Certificaciones y <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Logros</span>
+            {t('certificates.title')} <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{t('certificates.titleHighlight')}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Certificaciones obtenidas y reconocimientos que validan mis conocimientos técnicos
+            {t('certificates.subtitle')}
           </p>
         </motion.div>
 
@@ -115,7 +136,7 @@ export function Certificates() {
                       </div>
                       {cert.verified && (
                         <Badge variant="secondary" className="text-xs">
-                          Verificado
+                          {language === 'es' ? 'Verificado' : 'Verified'}
                         </Badge>
                       )}
                     </div>
@@ -141,7 +162,7 @@ export function Certificates() {
                   
                   <Button variant="ghost" size="sm" className="w-full mt-4">
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    Ver Certificado
+                    {t('certificates.viewCertificate')}
                   </Button>
                 </CardContent>
               </Card>
@@ -156,7 +177,9 @@ export function Certificates() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-semibold mb-8 text-center">Otros Logros</h3>
+          <h3 className="text-2xl font-semibold mb-8 text-center">
+            {language === 'es' ? 'Otros Logros' : 'Other Achievements'}
+          </h3>
           <div className="grid md:grid-cols-3 gap-6">
             {achievements.map((achievement, index) => (
               <motion.div

@@ -2,87 +2,90 @@ import { motion } from 'motion/react';
 import { Card, CardContent } from './ui/card';
 import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
-
-const skillCategories = [
-  {
-    title: 'Lenguajes de Programación',
-    icon: '💻',
-    skills: [
-      { name: 'Java', level: 85 },
-      { name: 'HTML', level: 90 },
-      { name: 'CSS', level: 85 },
-      { name: 'XML', level: 75 },
-      { name: 'SQL', level: 80 },
-      { name: 'JavaScript', level: 75 },
-    ]
-  },
-  {
-    title: 'Frameworks & Librerías',
-    icon: '⚛️',
-    skills: [
-      { name: 'React', level: 80 },
-      { name: 'Angular', level: 75 },
-      { name: 'Tailwind CSS', level: 70 },
-      { name: 'Material Design', level: 75 },
-    ]
-  },
-  {
-    title: 'Cloud & DevOps',
-    icon: '☁️',
-    skills: [
-      { name: 'AWS Cloud', level: 75 },
-      { name: 'Firebase', level: 70 },
-      { name: 'Git & GitHub', level: 80 },
-      { name: 'SQLite', level: 75 },
-    ]
-  },
-  {
-    title: 'Herramientas de Desarrollo',
-    icon: '🛠️',
-    skills: [
-      { name: 'Android Studio', level: 85 },
-      { name: 'Visual Studio Code', level: 85 },
-      { name: 'IntelliJ IDEA', level: 80 },
-      { name: 'Eclipse', level: 75 },
-    ]
-  }
-];
-
-const technologies = [
-  'Java', 'HTML5', 'CSS3', 'JavaScript', 'SQL', 'React', 'Angular', 'AWS Cloud',
-  'Firebase', 'Android Studio', 'Material Design', 'SQLite', 'Git & GitHub',
-  'Visual Studio Code', 'IntelliJ IDEA', 'Tailwind CSS', 'XML', 'TensorFlow',
-  'Machine Learning', 'Natural Language Processing', 'UI/UX Design'
-];
-
-const professionalHighlights = [
-  {
-    title: 'Desarrollo Full-Stack',
-    description: 'Frontend y Backend con tecnologías modernas',
-    icon: '🚀',
-    color: 'from-blue-500 to-cyan-500'
-  },
-  {
-    title: 'Cloud Computing',
-    description: 'AWS y servicios en la nube',
-    icon: '☁️', 
-    color: 'from-orange-500 to-yellow-500'
-  },
-  {
-    title: 'Mobile Development',
-    description: 'Aplicaciones Android nativas',
-    icon: '📱',
-    color: 'from-green-500 to-emerald-500'
-  },
-  {
-    title: 'Inteligencia Artificial',
-    description: 'ML, NLP y soluciones inteligentes',
-    icon: '🤖',
-    color: 'from-purple-500 to-pink-500'
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function Skills() {
+  const { t, language } = useLanguage();
+
+  const skillCategories = [
+    {
+      title: language === 'es' ? 'Lenguajes de Programación' : 'Programming Languages',
+      icon: '💻',
+      skills: [
+        { name: 'Java', level: 85 },
+        { name: 'HTML', level: 90 },
+        { name: 'CSS', level: 85 },
+        { name: 'XML', level: 75 },
+        { name: 'SQL', level: 80 },
+        { name: 'JavaScript', level: 75 },
+      ]
+    },
+    {
+      title: language === 'es' ? 'Frameworks & Librerías' : 'Frameworks & Libraries',
+      icon: '⚛️',
+      skills: [
+        { name: 'React', level: 80 },
+        { name: 'Angular', level: 75 },
+        { name: 'Tailwind CSS', level: 70 },
+        { name: 'Material Design', level: 75 },
+      ]
+    },
+    {
+      title: 'Cloud & DevOps',
+      icon: '☁️',
+      skills: [
+        { name: 'AWS Cloud', level: 75 },
+        { name: 'Firebase', level: 70 },
+        { name: 'Git & GitHub', level: 80 },
+        { name: 'SQLite', level: 75 },
+      ]
+    },
+    {
+      title: language === 'es' ? 'Herramientas de Desarrollo' : 'Development Tools',
+      icon: '🛠️',
+      skills: [
+        { name: 'Android Studio', level: 85 },
+        { name: 'Visual Studio Code', level: 85 },
+        { name: 'IntelliJ IDEA', level: 80 },
+        { name: 'Eclipse', level: 75 },
+      ]
+    }
+  ];
+
+  const technologies = [
+    'Java', 'HTML5', 'CSS3', 'JavaScript', 'SQL', 'React', 'Angular', 'AWS Cloud',
+    'Firebase', 'Android Studio', 'Material Design', 'SQLite', 'Git & GitHub',
+    'Visual Studio Code', 'IntelliJ IDEA', 'Tailwind CSS', 'XML', 'TensorFlow',
+    'Machine Learning', 'Natural Language Processing', 'UI/UX Design'
+  ];
+
+  const professionalHighlights = [
+    {
+      title: language === 'es' ? 'Desarrollo Full-Stack' : 'Full-Stack Development',
+      description: language === 'es' ? 'Frontend y Backend con tecnologías modernas' : 'Frontend and Backend with modern technologies',
+      icon: '🚀',
+      color: 'from-blue-500 to-cyan-500'
+    },
+    {
+      title: 'Cloud Computing',
+      description: language === 'es' ? 'AWS y servicios en la nube' : 'AWS and cloud services',
+      icon: '☁️', 
+      color: 'from-orange-500 to-yellow-500'
+    },
+    {
+      title: language === 'es' ? 'Mobile Development' : 'Mobile Development',
+      description: language === 'es' ? 'Aplicaciones Android nativas' : 'Native Android applications',
+      icon: '📱',
+      color: 'from-green-500 to-emerald-500'
+    },
+    {
+      title: language === 'es' ? 'Inteligencia Artificial' : 'Artificial Intelligence',
+      description: language === 'es' ? 'ML, NLP y soluciones inteligentes' : 'ML, NLP and intelligent solutions',
+      icon: '🤖',
+      color: 'from-purple-500 to-pink-500'
+    }
+  ];
+
   return (
     <section id="skills" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -94,10 +97,10 @@ export function Skills() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Mis <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Habilidades</span>
+            {t('skills.title')} <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{t('skills.titleHighlight')}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Tecnologías y herramientas que manejo para crear aplicaciones multiplataforma
+            {t('skills.subtitle')}
           </p>
         </motion.div>
 
@@ -152,32 +155,62 @@ export function Skills() {
         >
           <Card className="border-none bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-semibold mb-6 text-center">Experiencia y Formación</h3>
+              <h3 className="text-2xl font-semibold mb-6 text-center">
+                {language === 'es' ? 'Experiencia y Formación' : 'Experience and Training'}
+              </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold mb-4">Experiencia Laboral</h4>
+                  <h4 className="font-semibold mb-4">
+                    {language === 'es' ? 'Experiencia Laboral' : 'Work Experience'}
+                  </h4>
                   <div className="space-y-4">
                     <div className="border-l-2 border-purple-400 pl-4">
-                      <h5 className="font-medium">Desarrollo de Aplicaciones Multiplataforma</h5>
+                      <h5 className="font-medium">
+                        {language === 'es' ? 'Desarrollo de Aplicaciones Multiplataforma' : 'Cross-Platform Application Development'}
+                      </h5>
                       <p className="text-sm text-muted-foreground">2023 - OpenWebinar</p>
-                      <p className="text-sm">Especialización en diversos lenguajes: Java, SQL, HTML, CSS, XML, Angular y React</p>
+                      <p className="text-sm">
+                        {language === 'es' 
+                          ? 'Especialización en diversos lenguajes: Java, SQL, HTML, CSS, XML, Angular y React' 
+                          : 'Specialization in various languages: Java, SQL, HTML, CSS, XML, Angular and React'}
+                      </p>
                     </div>
                     <div className="border-l-2 border-blue-400 pl-4">
-                      <h5 className="font-medium">Organizador de Eventos</h5>
+                      <h5 className="font-medium">
+                        {language === 'es' ? 'Organizador de Eventos' : 'Event Organizer'}
+                      </h5>
                       <p className="text-sm text-muted-foreground">2022 - Videojuegos Party</p>
-                      <p className="text-sm">Preparador de actividades y montaje de hardware previo al evento</p>
+                      <p className="text-sm">
+                        {language === 'es' 
+                          ? 'Preparador de actividades y montaje de hardware previo al evento' 
+                          : 'Activity preparation and hardware setup prior to the event'}
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-4">Formación</h4>
+                  <h4 className="font-semibold mb-4">
+                    {language === 'es' ? 'Formación' : 'Education'}
+                  </h4>
                   <div className="space-y-4">
                     <div className="border-l-2 border-green-400 pl-4">
-                      <h5 className="font-medium">Grado Superior en Desarrollo de Aplicaciones Multiplataforma</h5>
-                      <p className="text-sm text-muted-foreground">Cursando actualmente 1° año - Instituto Isidac</p>
+                      <h5 className="font-medium">
+                        {language === 'es' 
+                          ? 'Grado Superior en Desarrollo de Aplicaciones Multiplataforma' 
+                          : 'Higher Degree in Cross-Platform Application Development'}
+                      </h5>
+                      <p className="text-sm text-muted-foreground">
+                        {language === 'es' 
+                          ? 'Cursando actualmente 1° año - Instituto Isidac' 
+                          : 'Currently in 1st year - Instituto Isidac'}
+                      </p>
                     </div>
                     <div className="border-l-2 border-orange-400 pl-4">
-                      <h5 className="font-medium">Bachiller con orientación en Tecnología</h5>
+                      <h5 className="font-medium">
+                        {language === 'es' 
+                          ? 'Bachiller con orientación en Tecnología' 
+                          : 'High School Diploma with Technology focus'}
+                      </h5>
                       <p className="text-sm text-muted-foreground">IES Isidya</p>
                     </div>
                   </div>
@@ -195,7 +228,9 @@ export function Skills() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h3 className="text-xl font-semibold mb-8">Tecnologías que utilizo</h3>
+          <h3 className="text-xl font-semibold mb-8">
+            {language === 'es' ? 'Tecnologías que utilizo' : 'Technologies I use'}
+          </h3>
           <div className="flex flex-wrap justify-center gap-3">
             {technologies.map((tech, index) => (
               <motion.div
@@ -224,7 +259,9 @@ export function Skills() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-semibold mb-8 text-center">Especialidades Profesionales</h3>
+          <h3 className="text-2xl font-semibold mb-8 text-center">
+            {language === 'es' ? 'Especialidades Profesionales' : 'Professional Specialties'}
+          </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {professionalHighlights.map((highlight, index) => (
               <motion.div

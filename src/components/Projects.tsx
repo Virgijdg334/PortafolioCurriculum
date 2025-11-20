@@ -5,65 +5,86 @@ import { Button } from './ui/button';
 import { ExternalLink, Github, Smartphone, Globe, MessageCircle, Star, Calendar, Code } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import tightPokerImage from 'figma:asset/17a87a8b4a140b18ac0afba69f0c3d942c3540e9.png';
-
-const projects = [
-  {
-    id: 1,
-    title: 'TightPoker',
-    subtitle: 'Aplicación de Casino Profesional',
-    description: 'Aplicación móvil completa para la gestión de casinos con interfaz elegante en verde esmeralda. Incluye sistema de saldo, gestión de torneos como "Mystery Weekend", diferentes modalidades de juego y navegación intuitiva con iconografía de cartas.',
-    longDescription: 'TightPoker es una sofisticada aplicación de casino que combina elegancia visual con funcionalidad profesional. La interfaz presenta un distintivo fondo verde esmeralda con marcos dorados, sistema de gestión de saldo en euros, organización de torneos especiales como "Mystery Weekend", y navegación fluida entre diferentes modalidades de juego con iconografía clásica de cartas.',
-    image: 'https://images.unsplash.com/photo-1662057168153-c0d62a4025f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBwb2tlciUyMGNhc2lubyUyMGFwcCUyMGdyZWVuJTIwZWxlZ2FudHxlbnwxfHx8fDE3NTgxOTYxMzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    technologies: ['Java', 'Android Studio', 'SQLite', 'Material Design', 'Firebase', 'UI/UX Design'],
-    category: 'Aplicación Móvil',
-    status: 'Completado',
-    year: '2024',
-    featured: true,
-    githubUrl: 'https://github.com/Virgijdg334/tightpoker',
-    demoUrl: null,
-    icon: Smartphone,
-    gradient: 'from-green-600 to-emerald-500',
-    highlights: ['Interfaz verde esmeralda elegante', 'Sistema de saldo en euros', 'Torneos especiales (Mystery Weekend)', 'Navegación con iconografía de cartas']
-  },
-  {
-    id: 2,
-    title: 'CardTCGShop',
-    subtitle: 'E-commerce de Cartas Coleccionables',
-    description: 'Tienda online interactiva especializada en cartas Pokémon de coleccionista. Incluye catálogo dinámico, sistema de búsqueda avanzada, carrito de compras y gestión de inventario en tiempo real.',
-    longDescription: 'CardTCGShop es una plataforma web completa para la venta de cartas de trading card games, especialmente Pokémon. La aplicación cuenta con un sistema de filtrado avanzado, visualización de cartas en alta resolución, gestión de usuarios, procesamiento de pedidos y análisis de tendencias de mercado.',
-    image: 'https://images.unsplash.com/photo-1664997296099-5a0b63ab0196?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2tlbW9uJTIwdHJhZGluZyUyMGNhcmRzJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NTgwODIyOTB8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    technologies: ['React', 'HTML5', 'CSS3', 'JavaScript', 'Node.js', 'Express', 'MongoDB'],
-    category: 'Aplicación Web',
-    status: 'Completado',
-    year: '2023',
-    featured: true,
-    githubUrl: 'https://github.com/Virgijdg334/cardTCGShop',
-    demoUrl: null,
-    icon: Globe,
-    gradient: 'from-purple-600 to-pink-600',
-    highlights: ['Filtrado avanzado', 'Carrito de compras', 'Gestión de inventario', 'Interfaz responsive']
-  },
-  {
-    id: 3,
-    title: 'ChatBot Empresarial',
-    subtitle: 'IA para Gestión de Incidencias',
-    description: 'Sistema de chatbot inteligente desarrollado para una empresa de gestión de incidencias. Automatiza la atención al cliente y optimiza la resolución de problemas técnicos mediante IA.',
-    longDescription: 'Chatbot empresarial diseñado para automatizar la gestión de incidencias técnicas. El sistema utiliza procesamiento de lenguaje natural para clasificar automáticamente los problemas, derivar casos complejos a técnicos especializados y proporcionar soluciones instantáneas para problemas comunes.',
-    image: 'https://images.unsplash.com/photo-1682941664177-7920d0e59418?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGF0Ym90JTIwY3VzdG9tZXIlMjBzZXJ2aWNlJTIwc3VwcG9ydHxlbnwxfHx8fDE3NTgxNzg2NzR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    technologies: ['Python', 'Natural Language Processing', 'TensorFlow', 'Flask', 'SQL', 'Machine Learning'],
-    category: 'Inteligencia Artificial',
-    status: 'En Producción',
-    year: '2024',
-    featured: false,
-    githubUrl: null,
-    demoUrl: null,
-    icon: MessageCircle,
-    gradient: 'from-orange-500 to-red-500',
-    highlights: ['Procesamiento NLP', 'Clasificación automática', 'Integración empresarial', 'ML Predictivo']
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function Projects() {
+  const { t, language } = useLanguage();
+
+  const projects = [
+    {
+      id: 1,
+      title: 'TightPoker',
+      subtitle: language === 'es' ? 'Aplicación de Casino Profesional' : 'Professional Casino Application',
+      description: language === 'es'
+        ? 'Aplicación móvil completa para la gestión de casinos con interfaz elegante en verde esmeralda. Incluye sistema de saldo, gestión de torneos como "Mystery Weekend", diferentes modalidades de juego y navegación intuitiva con iconografía de cartas.'
+        : 'Complete mobile application for casino management with elegant emerald green interface. Includes balance system, tournament management like "Mystery Weekend", different game modes and intuitive navigation with card iconography.',
+      longDescription: language === 'es'
+        ? 'TightPoker es una sofisticada aplicación de casino que combina elegancia visual con funcionalidad profesional. La interfaz presenta un distintivo fondo verde esmeralda con marcos dorados, sistema de gestión de saldo en euros, organización de torneos especiales como "Mystery Weekend", y navegación fluida entre diferentes modalidades de juego con iconografía clásica de cartas.'
+        : 'TightPoker is a sophisticated casino application that combines visual elegance with professional functionality. The interface features a distinctive emerald green background with golden frames, euro balance management system, special tournament organization like "Mystery Weekend", and smooth navigation between different game modes with classic card iconography.',
+      image: 'https://images.unsplash.com/photo-1662057168153-c0d62a4025f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBwb2tlciUyMGNhc2lubyUyMGFwcCUyMGdyZWVuJTIwZWxlZ2FudHxlbnwxfHx8fDE3NTgxOTYxMzN8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      technologies: ['Java', 'Android Studio', 'SQLite', 'Material Design', 'Firebase', 'UI/UX Design'],
+      category: language === 'es' ? 'Aplicación Móvil' : 'Mobile Application',
+      status: language === 'es' ? 'Completado' : 'Completed',
+      year: '2024',
+      featured: true,
+      githubUrl: 'https://github.com/Virgijdg334/tightpoker',
+      demoUrl: null,
+      icon: Smartphone,
+      gradient: 'from-green-600 to-emerald-500',
+      highlights: language === 'es'
+        ? ['Interfaz verde esmeralda elegante', 'Sistema de saldo en euros', 'Torneos especiales (Mystery Weekend)', 'Navegación con iconografía de cartas']
+        : ['Elegant emerald green interface', 'Euro balance system', 'Special tournaments (Mystery Weekend)', 'Card iconography navigation']
+    },
+    {
+      id: 2,
+      title: 'CardTCGShop',
+      subtitle: language === 'es' ? 'E-commerce de Cartas Coleccionables' : 'Collectible Cards E-commerce',
+      description: language === 'es'
+        ? 'Tienda online interactiva especializada en cartas Pokémon de coleccionista. Incluye catálogo dinámico, sistema de búsqueda avanzada, carrito de compras y gestión de inventario en tiempo real.'
+        : 'Interactive online store specialized in collectible Pokémon cards. Includes dynamic catalog, advanced search system, shopping cart and real-time inventory management.',
+      longDescription: language === 'es'
+        ? 'CardTCGShop es una plataforma web completa para la venta de cartas de trading card games, especialmente Pokémon. La aplicación cuenta con un sistema de filtrado avanzado, visualización de cartas en alta resolución, gestión de usuarios, procesamiento de pedidos y análisis de tendencias de mercado.'
+        : 'CardTCGShop is a complete web platform for selling trading card games, especially Pokémon. The application features an advanced filtering system, high-resolution card viewing, user management, order processing and market trend analysis.',
+      image: 'https://images.unsplash.com/photo-1664997296099-5a0b63ab0196?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2tlbW9uJTIwdHJhZGluZyUyMGNhcmRzJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NTgwODIyOTB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      technologies: ['React', 'HTML5', 'CSS3', 'JavaScript', 'Node.js', 'Express', 'MongoDB'],
+      category: language === 'es' ? 'Aplicación Web' : 'Web Application',
+      status: language === 'es' ? 'Completado' : 'Completed',
+      year: '2023',
+      featured: true,
+      githubUrl: 'https://github.com/Virgijdg334/cardTCGShop',
+      demoUrl: null,
+      icon: Globe,
+      gradient: 'from-purple-600 to-pink-600',
+      highlights: language === 'es'
+        ? ['Filtrado avanzado', 'Carrito de compras', 'Gestión de inventario', 'Interfaz responsive']
+        : ['Advanced filtering', 'Shopping cart', 'Inventory management', 'Responsive interface']
+    },
+    {
+      id: 3,
+      title: language === 'es' ? 'ChatBot Empresarial' : 'Business ChatBot',
+      subtitle: language === 'es' ? 'IA para Gestión de Incidencias' : 'AI for Incident Management',
+      description: language === 'es'
+        ? 'Sistema de chatbot inteligente desarrollado para una empresa de gestión de incidencias. Automatiza la atención al cliente y optimiza la resolución de problemas técnicos mediante IA.'
+        : 'Intelligent chatbot system developed for an incident management company. Automates customer service and optimizes technical problem resolution through AI.',
+      longDescription: language === 'es'
+        ? 'Chatbot empresarial diseñado para automatizar la gestión de incidencias técnicas. El sistema utiliza procesamiento de lenguaje natural para clasificar automáticamente los problemas, derivar casos complejos a técnicos especializados y proporcionar soluciones instantáneas para problemas comunes.'
+        : 'Business chatbot designed to automate technical incident management. The system uses natural language processing to automatically classify problems, route complex cases to specialized technicians, and provide instant solutions for common problems.',
+      image: 'https://images.unsplash.com/photo-1682941664177-7920d0e59418?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGF0Ym90JTIwY3VzdG9tZXIlMjBzZXJ2aWNlJTIwc3VwcG9ydHxlbnwxfHx8fDE3NTgxNzg2NzR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      technologies: ['Python', 'Natural Language Processing', 'TensorFlow', 'Flask', 'SQL', 'Machine Learning'],
+      category: language === 'es' ? 'Inteligencia Artificial' : 'Artificial Intelligence',
+      status: language === 'es' ? 'En Producción' : 'In Production',
+      year: '2024',
+      featured: false,
+      githubUrl: null,
+      demoUrl: null,
+      icon: MessageCircle,
+      gradient: 'from-orange-500 to-red-500',
+      highlights: language === 'es'
+        ? ['Procesamiento NLP', 'Clasificación automática', 'Integración empresarial', 'ML Predictivo']
+        : ['NLP Processing', 'Automatic classification', 'Business integration', 'Predictive ML']
+    }
+  ];
+
   return (
     <section id="projects" className="py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,10 +96,10 @@ export function Projects() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Mis <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Proyectos</span>
+            {t('projects.title')} <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{t('projects.titleHighlight')}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Una selección curada de proyectos que demuestran mis habilidades en desarrollo multiplataforma y diseño de experiencias digitales
+            {t('projects.subtitle')}
           </p>
         </motion.div>
 

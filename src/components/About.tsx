@@ -2,40 +2,52 @@ import { motion } from 'motion/react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Calendar, MapPin, Award, GraduationCap, Code, Briefcase, Trophy, Clock } from 'lucide-react';
-
-const professionalStats = [
-  {
-    icon: Code,
-    number: '10+',
-    label: 'Tecnologías Dominadas',
-    color: 'from-blue-500 to-cyan-500'
-  },
-  {
-    icon: Briefcase,
-    number: '3',
-    label: 'Proyectos Completados',
-    color: 'from-green-500 to-emerald-500'
-  },
-  {
-    icon: Trophy,
-    number: '6',
-    label: 'Certificaciones',
-    color: 'from-purple-500 to-pink-500'
-  },
-  {
-    icon: Clock,
-    number: '2+',
-    label: 'Años de Experiencia',
-    color: 'from-orange-500 to-red-500'
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function About() {
+  const { t } = useLanguage();
+
+  const professionalStats = [
+    {
+      icon: Code,
+      number: '10+',
+      label: t('about.stats.technologies'),
+      color: 'from-blue-500 to-cyan-500'
+    },
+    {
+      icon: Briefcase,
+      number: '3',
+      label: t('about.stats.projects'),
+      color: 'from-green-500 to-emerald-500'
+    },
+    {
+      icon: Trophy,
+      number: '6',
+      label: t('about.stats.certificates'),
+      color: 'from-purple-500 to-pink-500'
+    },
+    {
+      icon: Clock,
+      number: '2+',
+      label: t('about.stats.experience'),
+      color: 'from-orange-500 to-red-500'
+    }
+  ];
+
   const achievements = [
-    { icon: GraduationCap, label: 'Estudiante de 1° año - Desarrollo de Aplicaciones Multiplataforma' },
-    { icon: Award, label: 'Bachiller en Tecnología - IES Isidya' },
-    { icon: Calendar, label: 'Organizador de eventos - Videojuegos Party (2022)' },
-    { icon: MapPin, label: 'Sevilla, España' },
+    { icon: GraduationCap, label: t('about.achievements.student') },
+    { icon: Award, label: t('about.achievements.bachelor') },
+    { icon: Calendar, label: t('about.achievements.organizer') },
+    { icon: MapPin, label: t('about.achievements.location') },
+  ];
+
+  const softSkills = [
+    t('about.softSkills.teamwork'),
+    t('about.softSkills.events'),
+    t('about.softSkills.english'),
+    t('about.softSkills.aws'),
+    t('about.softSkills.learning'),
+    t('about.softSkills.problemSolving')
   ];
 
   return (
@@ -49,10 +61,10 @@ export function About() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Sobre <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Mí</span>
+            {t('about.title')} <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{t('about.titleHighlight')}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Desarrollador Junior especializado en aplicaciones multiplataforma y tecnologías web modernas
+            {t('about.subtitle')}
           </p>
         </motion.div>
 
@@ -96,26 +108,20 @@ export function About() {
           >
             <div className="space-y-4">
               <p className="text-muted-foreground leading-relaxed">
-                Soy Virgilio J. Domínguez, un desarrollador junior apasionado por la tecnología y la innovación. 
-                Actualmente estoy cursando el primer año del Grado Superior en Desarrollo de Aplicaciones 
-                Multiplataforma en el Instituto Isidac, donde estoy ampliando mis conocimientos técnicos.
+                {t('about.bio1')}
               </p>
               
               <p className="text-muted-foreground leading-relaxed">
-                Mi experiencia incluye el desarrollo de aplicaciones utilizando diversas tecnologías como Java, 
-                HTML, CSS, XML, Angular y React. He trabajado con OpenWebinar especializándome en diferentes 
-                lenguajes de programación, además de obtener certificaciones en AWS Cloud Computing.
+                {t('about.bio2')}
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                Además de la programación, he demostrado habilidades de organización y gestión al ser organizador 
-                de eventos en Videojuegos Party. Tengo un nivel avanzado de inglés que me permite acceder a 
-                recursos técnicos internacionales y colaborar en proyectos globales.
+                {t('about.bio3')}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {['Trabajo en equipo', 'Organización de eventos', 'Inglés avanzado', 'AWS Cloud', 'Aprendizaje continuo', 'Resolución de problemas'].map((skill) => (
+              {softSkills.map((skill) => (
                 <Badge key={skill} variant="secondary" className="px-3 py-1">
                   {skill}
                 </Badge>
@@ -153,10 +159,9 @@ export function About() {
 
             <Card className="border-none bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-2">Mi Objetivo</h3>
+                <h3 className="font-semibold mb-2">{t('about.myGoal')}</h3>
                 <p className="text-muted-foreground text-sm">
-                  "Seguir creciendo como desarrollador, aprendiendo nuevas tecnologías y contribuyendo 
-                  a proyectos que generen un impacto positivo en la sociedad."
+                  "{t('about.goalText')}"
                 </p>
               </CardContent>
             </Card>

@@ -6,56 +6,10 @@ import { Textarea } from './ui/textarea';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, CheckCircle, AlertCircle } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner@2.0.3';
-
-const contactInfo = [
-  {
-    icon: Mail,
-    title: 'Email',
-    value: 'jesusdmg334@gmail.com',
-    href: 'mailto:jesusdmg334@gmail.com'
-  },
-  {
-    icon: Phone,
-    title: 'Teléfono',
-    value: '618 77 32 13',
-    href: 'tel:+34618773213'
-  },
-  {
-    icon: MapPin,
-    title: 'Ubicación',
-    value: 'Calle Primavera 20, Sevilla, España',
-    href: '#'
-  }
-];
-
-const socialLinks = [
-  {
-    icon: Github,
-    name: 'GitHub',
-    href: 'https://github.com/virgilio',
-    color: 'hover:text-gray-400'
-  },
-  {
-    icon: Linkedin,
-    name: 'LinkedIn',
-    href: 'https://linkedin.com/in/virgilio-jes%C3%BAs-dom%C3%ADnguez-gonz%C3%A1lez-a34385284/',
-    color: 'hover:text-blue-400'
-  },
-  {
-    icon: Twitter,
-    name: 'Twitter',
-    href: 'https://twitter.com/virgilio',
-    color: 'hover:text-blue-400'
-  },
-  {
-    icon: Mail,
-    name: 'Email',
-    href: 'mailto:jesusdmg334@gmail.com',
-    color: 'hover:text-purple-400'
-  }
-];
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function Contact() {
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -64,88 +18,47 @@ export function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: t('contact.info.email'),
+      value: 'jesusdmg334@gmail.com',
+      href: 'mailto:jesusdmg334@gmail.com'
+    },
+    {
+      icon: MapPin,
+      title: t('contact.info.location'),
+      value: t('contact.info.locationValue'),
+      href: '#'
+    }
+  ];
+
+  const socialLinks = [
+    {
+      icon: Github,
+      name: 'GitHub',
+      href: 'https://github.com/Virgijdg334',
+      color: 'hover:text-gray-400'
+    },
+    {
+      icon: Linkedin,
+      name: 'LinkedIn',
+      href: 'https://linkedin.com/in/virgilio-jes%C3%BAs-dom%C3%ADnguez-gonz%C3%A1lez-a34385284/',
+      color: 'hover:text-blue-400'
+    },
+    {
+      icon: Mail,
+      name: 'Email',
+      href: 'mailto:jesusdmg334@gmail.com',
+      color: 'hover:text-purple-400'
+    }
+  ];
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
-  };
-
-  const sendEmailViaAPI = async (data: any) => {
-    // Intentar múltiples servicios de email gratuitos en cascada
-    const services = [
-      // Web3Forms (gratis, sin registro)
-      {
-        url: 'https://api.web3forms.com/submit',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_KEY', // Obtener gratis en web3forms.com
-          name: data.from_name,
-          email: data.from_email,
-          subject: data.subject,
-          message: data.message,
-          to: 'jesusdmg334@gmail.com'
-        })
-      },
-      // Formsubmit (gratis, sin registro)
-      {
-        url: 'https://formsubmit.co/jesusdmg334@gmail.com',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.from_name,
-          email: data.from_email,
-          subject: data.subject,
-          message: data.message,
-          _subject: `Nuevo mensaje de ${data.from_name}: ${data.subject}`,
-          _autoresponse: 'Gracias por tu mensaje. Te responderé pronto.',
-          _template: 'table'
-        })
-      }
-    ];
-
-    // Intentar cada servicio hasta que uno funcione
-    for (const service of services) {
-      try {
-        const response = await fetch(service.url, {
-          method: service.method,
-          headers: service.headers,
-          body: service.body
-        });
-
-        if (response.ok) {
-          return { success: true, service: 'api' };
-        }
-      } catch (error) {
-        console.log('Servicio falló, intentando siguiente...');
-        continue;
-      }
-    }
-
-    // Si todos fallan, usar mailto como fallback
-    throw new Error('Todos los servicios fallaron');
-  };
-
-  const sendEmailViaMailto = (data: any) => {
-    const subject = encodeURIComponent(`Nuevo mensaje de ${data.from_name}: ${data.subject}`);
-    const body = encodeURIComponent(
-      `Hola Virgilio,
-
-Soy ${data.from_name} (${data.from_email}).
-
-Asunto: ${data.subject}
-
-Mensaje:
-${data.message}
-
----
-Este mensaje fue enviado desde tu portafolio web.`
-    );
-    
-    const mailtoLink = `mailto:jesusdmg334@gmail.com?subject=${subject}&body=${body}`;
-    window.location.href = mailtoLink;
-    return { success: true, service: 'mailto' };
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -171,45 +84,36 @@ Este mensaje fue enviado desde tu portafolio web.`
     setIsSubmitting(true);
 
     try {
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        timestamp: new Date().toLocaleString('es-ES')
-      };
-
-      // Intentar envío vía API primero
-      try {
-        const result = await sendEmailViaAPI(templateParams);
-        
-        if (result.success) {
-          toast.success('¡Mensaje enviado correctamente!', {
-            description: 'Te responderé tan pronto como sea posible.',
-            icon: <CheckCircle className="w-4 h-4" />,
-          });
-          
-          // Reset form
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          return;
-        }
-      } catch (apiError) {
-        // Si falla la API, usar mailto como fallback
-        const mailtoResult = sendEmailViaMailto(templateParams);
-        
-        toast.success('Abriendo tu cliente de email', {
-          description: 'Se abrirá tu aplicación de email con el mensaje pre-rellenado.',
-          icon: <Mail className="w-4 h-4" />,
-        });
-        
-        // Reset form
+      // Crear el enlace mailto con toda la información
+      const subject = encodeURIComponent(`Portafolio - ${formData.subject} (de ${formData.name})`);
+      const body = encodeURIComponent(
+        `Nombre: ${formData.name}\n` +
+        `Email: ${formData.email}\n` +
+        `Asunto: ${formData.subject}\n\n` +
+        `Mensaje:\n${formData.message}\n\n` +
+        `---\n` +
+        `Este mensaje fue enviado desde tu portafolio web el ${new Date().toLocaleString('es-ES')}`
+      );
+      
+      const mailtoLink = `mailto:jesusdmg334@gmail.com?subject=${subject}&body=${body}`;
+      
+      // Abrir el cliente de email
+      window.location.href = mailtoLink;
+      
+      // Mostrar mensaje de éxito
+      toast.success('¡Abriendo tu cliente de email!', {
+        description: 'Se ha preparado un correo con tu mensaje para enviarlo a jesusdmg334@gmail.com',
+        icon: <Mail className="w-4 h-4" />,
+      });
+      
+      // Reset form después de un breve delay
+      setTimeout(() => {
         setFormData({ name: '', email: '', subject: '', message: '' });
-        return;
-      }
+      }, 1000);
       
     } catch (error) {
-      toast.error('Error al procesar el mensaje', {
-        description: 'Por favor, intenta contactar directamente por email: jesusdmg334@gmail.com',
+      toast.error('Error al abrir el cliente de email', {
+        description: 'Por favor, envía un email directamente a jesusdmg334@gmail.com',
         icon: <AlertCircle className="w-4 h-4" />,
       });
     } finally {
@@ -228,10 +132,10 @@ Este mensaje fue enviado desde tu portafolio web.`
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Hablemos de tu <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Proyecto</span>
+            {t('contact.title')} <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{t('contact.titleHighlight')}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            ¿Tienes una idea increíble? Me encantaría escucharla y colaborar contigo para hacerla realidad
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
@@ -323,11 +227,11 @@ Este mensaje fue enviado desde tu portafolio web.`
                 <div className="mt-6 p-4 bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-lg">
                   <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-green-400" />
-                    Sistema de envío automático
+                    Envío directo por email
                   </h4>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Este formulario usa múltiples APIs para garantizar que tu mensaje llegue a <strong>jesusdmg334@gmail.com</strong>. 
-                    Si falla el envío automático, se abrirá tu cliente de email como respaldo.
+                    Al hacer clic en "Enviar Mensaje", se abrirá tu cliente de email predeterminado (Gmail, Outlook, etc.) 
+                    con un mensaje pre-rellenado listo para enviar a <strong>jesusdmg334@gmail.com</strong>.
                   </p>
                 </div>
               </CardContent>

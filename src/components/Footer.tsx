@@ -3,13 +3,24 @@ import { Button } from './ui/button';
 import { Separator } from './ui/separator';
 import { Github, Linkedin, Mail, Heart, ArrowUp, MapPin, Phone, Award } from 'lucide-react';
 import { Badge } from './ui/badge';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export function Footer() {
+  const { t, language } = useLanguage();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const currentYear = new Date().getFullYear();
+
+  const navLinks = [
+    { name: t('nav.home'), href: '#hero' },
+    { name: t('nav.about'), href: '#about' },
+    { name: t('nav.skills'), href: '#skills' },
+    { name: t('nav.certificates'), href: '#certificates' },
+    { name: t('nav.projects'), href: '#projects' },
+    { name: t('nav.contact'), href: '#contact' },
+  ];
 
   return (
     <footer className="relative bg-background/50 backdrop-blur-sm border-t border-border">
@@ -27,8 +38,7 @@ export function Footer() {
               Virgilio J. Domínguez
             </h3>
             <p className="text-muted-foreground text-sm max-w-md">
-              Desarrollador Full-Stack Junior especializado en aplicaciones multiplataforma y tecnologías cloud. 
-              Certificado en AWS y con experiencia en Java, React, Angular y más.
+              {t('footer.description')}
             </p>
             <div className="flex flex-wrap gap-2">
               <Badge variant="outline" className="text-xs">
@@ -36,7 +46,7 @@ export function Footer() {
                 AWS Certified
               </Badge>
               <Badge variant="outline" className="text-xs">
-                Disponible para contratación
+                {t('hero.available')}
               </Badge>
             </div>
           </motion.div>
@@ -49,16 +59,9 @@ export function Footer() {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h4 className="font-semibold">Enlaces Rápidos</h4>
+            <h4 className="font-semibold">{t('footer.quickLinks')}</h4>
             <div className="space-y-2">
-              {[
-                { name: 'Inicio', href: '#hero' },
-                { name: 'Sobre Mí', href: '#about' },
-                { name: 'Habilidades', href: '#skills' },
-                { name: 'Certificados', href: '#certificates' },
-                { name: 'Proyectos', href: '#projects' },
-                { name: 'Contacto', href: '#contact' },
-              ].map((link) => (
+              {navLinks.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => {
@@ -83,7 +86,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h4 className="font-semibold">Contacto</h4>
+            <h4 className="font-semibold">{t('contact.info.title')}</h4>
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4" />
@@ -95,17 +98,8 @@ export function Footer() {
                 </a>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4" />
-                <a 
-                  href="tel:+34618773213"
-                  className="hover:text-foreground transition-colors"
-                >
-                  618 77 32 13
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4" />
-                <span>Sevilla, España</span>
+                <span>{t('contact.info.locationValue')}</span>
               </div>
             </div>
             
@@ -148,14 +142,12 @@ export function Footer() {
           className="flex flex-col md:flex-row justify-between items-center gap-4"
         >
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <span>© {currentYear} Virgilio J. Domínguez. Hecho con</span>
-            <Heart className="w-4 h-4 text-red-400 fill-current animate-pulse" />
-            <span>y mucho código</span>
+            <span>© {currentYear} Virgilio J. Domínguez. {t('footer.rights')}</span>
           </div>
           
           <div className="flex items-center gap-4">
             <span className="text-xs text-muted-foreground">
-              Desarrollado con React & Tailwind CSS
+              {language === 'es' ? 'Desarrollado con React & Tailwind CSS' : 'Built with React & Tailwind CSS'}
             </span>
             <Button
               variant="outline"
@@ -164,7 +156,7 @@ export function Footer() {
               className="flex items-center gap-2 hover:bg-accent transition-all duration-200"
             >
               <ArrowUp className="w-4 h-4" />
-              Volver arriba
+              {t('scrollToTop')}
             </Button>
           </div>
         </motion.div>
